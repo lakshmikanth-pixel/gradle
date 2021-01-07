@@ -5,12 +5,21 @@ pipeline {
         stage ('Compile Stage') {
 
             steps {
-                sh './gradle clean build'
-
+                withGradle(gradle : 'Gradle') {
+                    sh 'gradle clean build'
                 }
             }
         }
- 
- }
+
+        stage ('Testing Stage') {
+
+            steps {
+                withGradle(gradle : 'Gradle') {
+                    sh 'gradle test'
+                }
+            }
+        }
 
 
+    }
+}
